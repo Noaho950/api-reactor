@@ -163,7 +163,7 @@ The response is displayed directly in the terminal.
 Clone the repository and build the extension locally.
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/Noaho950/api-testing-suite.git
 cd api-testing-suite
 
 npm install
