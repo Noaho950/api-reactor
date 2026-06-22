@@ -1,0 +1,106 @@
+{
+  "name": "api-testing-suite",
+  "displayName": "API Testing Suite",
+  "description": "Load API endpoint definitions from any URL (local file, local server, or remote) and test them directly from the VS Code sidebar.",
+  "version": "0.0.1",
+  "publisher": "NoahBit",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "api-testing.refresh",
+        "title": "Refresh API Tests",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "api-testing.preview",
+        "title": "Preview API Request",
+        "icon": "$(preview)"
+      },
+      {
+        "command": "api-testing.run",
+        "title": "Run API Request",
+        "icon": "$(play)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "apiTesting",
+          "title": "API Testing",
+          "icon": "$(beaker)"
+        }
+      ]
+    },
+    "views": {
+      "apiTesting": [
+        {
+          "id": "apiTestingView",
+          "name": "API Endpoints"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "api-testing.refresh",
+          "when": "view == apiTestingView",
+          "group": "navigation",
+          "icon": "$(refresh)"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "api-testing.preview",
+          "when": "view == apiTestingView && viewItem == 'endpoint'",
+          "group": "inline",
+          "icon": "$(preview)"
+        },
+        {
+          "command": "api-testing.run",
+          "when": "view == apiTestingView && viewItem == 'endpoint'",
+          "group": "inline",
+          "icon": "$(play)"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "API Testing Suite",
+      "properties": {
+        "apiTesting.baseUrl": {
+          "type": "string",
+          "default": "http://localhost:3000/api",
+          "description": "Base URL for all API requests (e.g., http://localhost:3000/api or https://api.example.com/v1)"
+        },
+        "apiTesting.definitionsUrl": {
+          "type": "string",
+          "default": "http://localhost:3000/api-tests.json",
+          "description": "URL to fetch API endpoint definitions. Supports: http://, https://, or file:///path/to/file.json"
+        },
+        "apiTesting.autoFetch": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically fetch API definitions when VS Code starts."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "20.x",
+    "typescript": "^5.3.0"
+  }
+}
