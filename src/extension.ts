@@ -32,7 +32,7 @@ class CategoryItem extends vscode.TreeItem {
     }
 }
 
-class ApiTestingProvider implements vscode.TreeDataProvider<CategoryItem | EndpointItem> {
+class ApiReactorProvider implements vscode.TreeDataProvider<CategoryItem | EndpointItem> {
     private _onDidChangeTreeData = new vscode.EventEmitter<CategoryItem | EndpointItem | undefined | void>();
     readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
     private categories: CategoryItem[] = [];
@@ -46,7 +46,7 @@ class ApiTestingProvider implements vscode.TreeDataProvider<CategoryItem | Endpo
 
     private async _loadDefinitions() {
         this.categories = [];
-        const config = vscode.workspace.getConfiguration('apiTesting');
+        const config = vscode.workspace.getConfiguration('apiReactor');
         this.baseUrl = config.get<string>('baseUrl') || 'http://localhost:3000/api';
         const url = config.get<string>('definitionsUrl');
         if (!url) return;
@@ -54,12 +54,10 @@ class ApiTestingProvider implements vscode.TreeDataProvider<CategoryItem | Endpo
         try {
             let data: any;
             if (url.startsWith('file:///')) {
-                // Handle local file
                 const filePath = url.replace('file:///', '');
                 const content = fs.readFileSync(filePath, 'utf8');
                 data = JSON.parse(content);
             } else {
-                // Handle HTTP/HTTPS
                 const response = await fetch(url);
                 data = await response.json();
             }
@@ -141,7 +139,7 @@ class ApiTestingProvider implements vscode.TreeDataProvider<CategoryItem | Endpo
         );
         if (choice !== 'Send') return;
 
-        const terminal = vscode.window.createTerminal('API Test');
+        const terminal = vscode.window.createTerminal('API Reactor');
         terminal.show();
         terminal.sendText(curlCmd);
     }
@@ -150,20 +148,20 @@ class ApiTestingProvider implements vscode.TreeDataProvider<CategoryItem | Endpo
 // ---------- ACTIVATION ----------
 
 export async function activate(context: vscode.ExtensionContext) {
-    const provider = new ApiTestingProvider();
+    const provider = new ApiReactorProvider();
     await provider.refresh();
-    vscode.window.registerTreeDataProvider('apiTestingView', provider);
+    vscode.window.registerTreeDataProvider('apiReactorView', provider);
 
-    const refreshCmd = vscode.commands.registerCommand('api-testing.refresh', () => provider.refresh());
+    const refreshCmd = vscode.commands.registerCommand('api-reactor.refresh', () => provider.refresh());
     context.subscriptions.push(refreshCmd);
 
-    const previewCmd = vscode.commands.registerCommand('api-testing.preview', (node: EndpointItem) => provider.previewEndpoint(node));
+    const previewCmd = vscode.commands.registerCommand('api-reactor.preview', (node: EndpointItem) => provider.previewEndpoint(node));
     context.subscriptions.push(previewCmd);
 
-    const runCmd = vscode.commands.registerCommand('api-testing.run', (node: EndpointItem) => provider.runEndpoint(node));
+    const runCmd = vscode.commands.registerCommand('api-reactor.run', (node: EndpointItem) => provider.runEndpoint(node));
     context.subscriptions.push(runCmd);
 
-    const config = vscode.workspace.getConfiguration('apiTesting');
+    const config = vscode.workspace.getConfiguration('apiReactor');
     if (config.get<boolean>('autoFetch', false)) {
         provider.refresh();
     }
