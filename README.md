@@ -1,6 +1,6 @@
-# API Testing Suite
+# API Reactor
 
-**API Testing Suite** is a VS Code extension that allows you to load API endpoint definitions from any URL (local file, local server, or remote) and test them directly from the VS Code sidebar.
+**API Reactor** is a VS Code extension that allows you to load API endpoint definitions from any URL (local file, local server, or remote) and test them directly from the VS Code sidebar.
 
 ---
 
@@ -35,28 +35,28 @@
 ### Install via Command Line
 
 ```bash
-code --install-extension api-testing-suite-0.0.1.vsix
+code --install-extension api-api-reactor-0.0.1.vsix
 ```
 
 ---
 
 ## ⚙️ Configuration
 
-Open **Settings** (`Ctrl + ,`) and search for **apiTesting**.
+Open **Settings** (`Ctrl + ,`) and search for **apiReactor**.
 
 | Setting                     | Type    | Default                                | Description                                                                             |
 | --------------------------- | ------- | -------------------------------------- | --------------------------------------------------------------------------------------- |
-| `apiTesting.baseUrl`        | string  | `http://localhost:3000/api`            | Base URL used for all API requests                                                      |
-| `apiTesting.definitionsUrl` | string  | `http://localhost:3000/api-tests.json` | URL containing API endpoint definitions. Supports `http://`, `https://`, and `file:///` |
-| `apiTesting.autoFetch`      | boolean | `false`                                | Automatically fetch API definitions when VS Code starts                                 |
+| `apiReactor.baseUrl`        | string  | `http://localhost:3000/api`            | Base URL used for all API requests                                                      |
+| `apiReactor.definitionsUrl` | string  | `http://localhost:3000/api-tests.json` | URL containing API endpoint definitions. Supports `http://`, `https://`, and `file:///` |
+| `apiReactor.autoFetch`      | boolean | `false`                                | Automatically fetch API definitions when VS Code starts                                 |
 
 ### Example Configuration
 
 ```json
 {
-  "apiTesting.baseUrl": "https://api.example.com/v1",
-  "apiTesting.definitionsUrl": "https://api.example.com/api-tests.json",
-  "apiTesting.autoFetch": true
+  "apiReactor.baseUrl": "https://api.example.com/v1",
+  "apiReactor.definitionsUrl": "https://api.example.com/api-tests.json",
+  "apiReactor.autoFetch": true
 }
 ```
 
@@ -124,12 +124,12 @@ The `definitionsUrl` must return a JSON array in the following format:
 
 Set the following values in VS Code settings:
 
-* `apiTesting.baseUrl`
-* `apiTesting.definitionsUrl`
+* `apiReactor.baseUrl`
+* `apiReactor.definitionsUrl`
 
 ### 2. Open the API Testing Sidebar
 
-Click the **🧪 API Testing Suite** icon in the VS Code Activity Bar.
+Click the **🧪 API Reactor** icon in the VS Code Activity Bar.
 
 ### 3. Load API Definitions
 
@@ -163,8 +163,8 @@ The response is displayed directly in the terminal.
 Clone the repository and build the extension locally.
 
 ```bash
-git clone https://github.com/Noaho950/api-testing-suite.git
-cd api-testing-suite
+git clone https://github.com/Noaho950/api-reactor.git
+cd api-reactor
 
 npm install
 npm run compile
@@ -179,7 +179,7 @@ A `.vsix` package will be generated in the project root.
 ## 📁 Project Structure
 
 ```text
-api-testing-suite/
+api-reactor/
 ├── src/
 ├── media/
 ├── package.json
