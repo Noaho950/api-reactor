@@ -1,9 +1,14 @@
 {
-  "name": "api-testing-suite",
-  "displayName": "API Testing Suite",
+  "name": "api-reactor",
+  "displayName": "API Reactor",
   "description": "Load API endpoint definitions from any URL (local file, local server, or remote) and test them directly from the VS Code sidebar.",
   "version": "0.0.1",
   "publisher": "NoahBit",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Noaho950/api-reactor"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -11,22 +16,22 @@
     "Testing",
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": ["onStartupFinished"],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "api-testing.refresh",
+        "command": "api-reactor.refresh",
         "title": "Refresh API Tests",
         "icon": "$(refresh)"
       },
       {
-        "command": "api-testing.preview",
+        "command": "api-reactor.preview",
         "title": "Preview API Request",
         "icon": "$(preview)"
       },
       {
-        "command": "api-testing.run",
+        "command": "api-reactor.run",
         "title": "Run API Request",
         "icon": "$(play)"
       }
@@ -34,16 +39,16 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "apiTesting",
-          "title": "API Testing",
+          "id": "apiReactor",
+          "title": "API Reactor",
           "icon": "$(beaker)"
         }
       ]
     },
     "views": {
-      "apiTesting": [
+      "apiReactor": [
         {
-          "id": "apiTestingView",
+          "id": "apiReactorView",
           "name": "API Endpoints"
         }
       ]
@@ -51,41 +56,41 @@
     "menus": {
       "view/title": [
         {
-          "command": "api-testing.refresh",
-          "when": "view == apiTestingView",
+          "command": "api-reactor.refresh",
+          "when": "view == apiReactorView",
           "group": "navigation",
           "icon": "$(refresh)"
         }
       ],
       "view/item/context": [
         {
-          "command": "api-testing.preview",
-          "when": "view == apiTestingView && viewItem == 'endpoint'",
+          "command": "api-reactor.preview",
+          "when": "view == apiReactorView && viewItem == 'endpoint'",
           "group": "inline",
           "icon": "$(preview)"
         },
         {
-          "command": "api-testing.run",
-          "when": "view == apiTestingView && viewItem == 'endpoint'",
+          "command": "api-reactor.run",
+          "when": "view == apiReactorView && viewItem == 'endpoint'",
           "group": "inline",
           "icon": "$(play)"
         }
       ]
     },
     "configuration": {
-      "title": "API Testing Suite",
+      "title": "API Reactor",
       "properties": {
-        "apiTesting.baseUrl": {
+        "apiReactor.baseUrl": {
           "type": "string",
           "default": "http://localhost:3000/api",
           "description": "Base URL for all API requests (e.g., http://localhost:3000/api or https://api.example.com/v1)"
         },
-        "apiTesting.definitionsUrl": {
+        "apiReactor.definitionsUrl": {
           "type": "string",
           "default": "http://localhost:3000/api-tests.json",
           "description": "URL to fetch API endpoint definitions. Supports: http://, https://, or file:///path/to/file.json"
         },
-        "apiTesting.autoFetch": {
+        "apiReactor.autoFetch": {
           "type": "boolean",
           "default": false,
           "description": "Automatically fetch API definitions when VS Code starts."
